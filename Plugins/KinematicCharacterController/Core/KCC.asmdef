@@ -1,0 +1,16 @@
+{
+    "name": "KCC",
+    "rootNamespace": "KCC",
+    "references": [
+        "GUID:e8738f21e61294f4eaf033daba4d8a8f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

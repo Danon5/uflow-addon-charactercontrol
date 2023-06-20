@@ -1,0 +1,17 @@
+{
+    "name": "UFlow.Addon.CharacterControl.Runtime",
+    "rootNamespace": "UFlow.Addon.CharacterControl.Runtime",
+    "references": [
+        "GUID:bb1ffefc3dfaace4eb1d1ecc2cf4e24a",
+        "GUID:2d5e92dd32db2134e86950b33639304e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

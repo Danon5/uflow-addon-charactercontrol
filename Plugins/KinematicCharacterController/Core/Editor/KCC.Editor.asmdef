@@ -1,0 +1,18 @@
+{
+    "name": "KCC.Editor",
+    "rootNamespace": "KCC",
+    "references": [
+        "GUID:2d5e92dd32db2134e86950b33639304e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
