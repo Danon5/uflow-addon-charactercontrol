@@ -3,7 +3,7 @@ using KCC;
 using UFlow.Core.Runtime;
 using UnityEngine;
 
-namespace UFlow.Addon.CharacterControl.Runtime {
+namespace UFlow.Addon.CharacterControl.Core.Runtime {
     [RequireComponent(typeof(KinematicCharacterMotor))]
     public sealed class KinematicCharacterController : MonoBehaviour, ICharacterController {
         private KinematicCharacterMotor m_motor;
