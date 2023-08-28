@@ -10,6 +10,7 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
         private bool m_wasGrounded;
         
         [field: SerializeField] public bool ApplyVelocityAlongGroundNormal { get; set; }
+        [field: SerializeField] public LayerMask CollisionLayers { get; set; }
         public Vector3 Velocity { get; set; }
         public Vector3 MostRecentAirVelocity { get; private set; }
         public Quaternion Rotation { get; set; }
@@ -64,7 +65,7 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
         }
 
         public bool IsColliderValidForCollisions(Collider col) {
-            return UFlowUtils.Layers.MaskContainsLayer(m_motor.CollidableLayers, col.gameObject.layer);
+            return UFlowUtils.Layers.MaskContainsLayer(CollisionLayers, col.gameObject.layer);
         }
 
         public void OnGroundHit(Collider hitCollider, in Vector3 hitNormal, in Vector3 hitPoint, 
