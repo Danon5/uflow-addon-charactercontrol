@@ -15,6 +15,7 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
         public Quaternion Rotation { get; set; }
         public bool BecameGroundedThisFrame { get; private set; }
         public bool BecameUngroundedThisFrame { get; private set; }
+        public bool IsGrounded => Motor.GroundingStatus.IsStableOnGround;
         public KinematicCharacterMotor Motor { get; private set; }
 
         [UsedImplicitly]
