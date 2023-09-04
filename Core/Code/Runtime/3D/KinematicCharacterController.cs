@@ -6,7 +6,6 @@ using UnityEngine;
 namespace UFlow.Addon.CharacterControl.Core.Runtime {
     [RequireComponent(typeof(KinematicCharacterMotor))]
     public sealed class KinematicCharacterController : MonoBehaviour, ICharacterController {
-        private KinematicCharacterMotor m_motor;
         private bool m_wasGrounded;
         
         [field: SerializeField] public bool ApplyVelocityAlongGroundNormal { get; set; }
@@ -16,11 +15,12 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
         public Quaternion Rotation { get; set; }
         public bool BecameGroundedThisFrame { get; private set; }
         public bool BecameUngroundedThisFrame { get; private set; }
+        public KinematicCharacterMotor Motor { get; private set; }
 
         [UsedImplicitly]
         private void Awake() {
-            m_motor = GetComponent<KinematicCharacterMotor>();
-            m_motor.CharacterController = this;
+            Motor = GetComponent<KinematicCharacterMotor>();
+            Motor.CharacterController = this;
         }
 
         public void BeforeCharacterUpdate(float deltaTime) {
@@ -32,12 +32,12 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
             if (BecameUngroundedThisFrame)
                 BecameUngroundedThisFrame = false;
             
-            if (!m_wasGrounded && m_motor.GroundingStatus.IsStableOnGround)
+            if (!m_wasGrounded && Motor.GroundingStatus.IsStableOnGround)
                 BecameGroundedThisFrame = true;
-            else if (m_wasGrounded && !m_motor.GroundingStatus.IsStableOnGround)
+            else if (m_wasGrounded && !Motor.GroundingStatus.IsStableOnGround)
                 BecameUngroundedThisFrame = true;
 
-            m_wasGrounded = m_motor.GroundingStatus.IsStableOnGround;
+            m_wasGrounded = Motor.GroundingStatus.IsStableOnGround;
         }
 
         public void UpdateRotation(ref Quaternion currentRotation, float deltaTime) {
@@ -50,18 +50,18 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
                 return;
             }
 
-            var groundingStatus = m_motor.GroundingStatus;
+            var groundingStatus = Motor.GroundingStatus;
             if (!groundingStatus.IsStableOnGround) {
                 currentVelocity = Velocity;
                 return;
             }
             var currentVelMag = Velocity.magnitude;
             var groundNormal = groundingStatus.GroundNormal;
-            currentVelocity = m_motor.GetDirectionTangentToSurface(Velocity, groundNormal) * currentVelMag;
+            currentVelocity = Motor.GetDirectionTangentToSurface(Velocity, groundNormal) * currentVelMag;
         }
 
         public void AfterCharacterUpdate(float deltaTime) {
-            Velocity = m_motor.BaseVelocity;
+            Velocity = Motor.BaseVelocity;
         }
 
         public bool IsColliderValidForCollisions(Collider col) {
