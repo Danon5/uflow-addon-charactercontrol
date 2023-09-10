@@ -13,6 +13,8 @@ namespace KCC {
         private static KinematicCharacterSystem s_instance;
         private static float s_lastCustomInterpolationStartTime = -1f;
         private static float s_lastCustomInterpolationDeltaTime = -1f;
+        private static List<KinematicCharacterMotor> s_motorBuffer = new();
+        private static List<PhysicsMover> s_moverBuffer = new();
 
         public static KCCSettings Settings {
             get {
@@ -109,6 +111,15 @@ namespace KCC {
             if (Settings.Interpolate) PreSimulationInterpolationUpdate(motors, movers);
             Simulate(deltaTime, motors, movers);
             if (Settings.Interpolate) PostSimulationInterpolationUpdate(deltaTime, motors, movers);
+        }
+        
+        public static void ManualSimulationUpdate(float deltaTime, KinematicCharacterMotor motor) {
+            s_motorBuffer.Clear();
+            s_moverBuffer.Clear();
+            s_motorBuffer.Add(motor);
+            if (Settings.Interpolate) PreSimulationInterpolationUpdate(s_motorBuffer, s_moverBuffer);
+            Simulate(deltaTime, s_motorBuffer, s_moverBuffer);
+            if (Settings.Interpolate) PostSimulationInterpolationUpdate(deltaTime, s_motorBuffer, s_moverBuffer);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
