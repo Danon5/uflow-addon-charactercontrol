@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using KCC;
-using UFlow.Core.Runtime;
+using UFlow.Core.Shared;
 using UnityEngine;
 
 namespace UFlow.Addon.CharacterControl.Core.Runtime {
