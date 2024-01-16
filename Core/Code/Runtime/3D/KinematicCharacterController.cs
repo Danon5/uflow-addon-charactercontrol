@@ -68,5 +68,9 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
                                               ref HitStabilityReport hitStabilityReport) { }
 
         public void OnDiscreteCollisionDetected(Collider hitCollider) { }
+
+        public void Simulate(float delta) {
+            KinematicCharacterSystem.ManualSimulationUpdate(delta, Motor);
+        }
     }
 }
