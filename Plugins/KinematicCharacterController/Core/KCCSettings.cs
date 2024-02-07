@@ -15,6 +15,7 @@ namespace KCC
         /// Should interpolation of characters and PhysicsMovers be handled
         /// </summary>
         [Tooltip("Should interpolation of characters and PhysicsMovers be handled")]
+        public bool Interpolate = true;
         public bool AutoInterpolate = true;
         /// <summary>
 		
