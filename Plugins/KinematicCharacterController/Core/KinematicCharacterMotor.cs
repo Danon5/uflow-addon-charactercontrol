@@ -609,8 +609,9 @@ namespace KCC
         /// <summary>
         /// Sets the character's position directly
         /// </summary>
-        public void SetPosition(Vector3 position, bool bypassInterpolation = true)
-        {
+        public void SetPosition(Vector3 position, bool bypassInterpolation = true) {
+            if (_transform == null)
+                _transform = transform;
             _transform.position = position;
             _initialSimulationPosition = position;
             _transientPosition = position;
