@@ -103,7 +103,7 @@ namespace KCC {
         }
 
         private void LateUpdate() {
-            if (Settings.Interpolate)
+            if (Settings.AutoSimulation && Settings.Interpolate)
                 CustomInterpolationUpdate();
         }
 
