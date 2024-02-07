@@ -103,30 +103,30 @@ namespace KCC {
         }
 
         private void LateUpdate() {
-            if (Settings.AutoSimulation && Settings.Interpolate)
+            if (Settings.AutoInterpolate)
                 CustomInterpolationUpdate();
         }
 
         public static void ManualSimulationUpdate(float deltaTime, List<KinematicCharacterMotor> motors, List<PhysicsMover> movers) {
-            if (Settings.Interpolate) PreSimulationInterpolationUpdate(motors, movers);
+            if (Settings.AutoInterpolate) PreSimulationInterpolationUpdate(motors, movers);
             Simulate(deltaTime, motors, movers);
-            if (Settings.Interpolate) PostSimulationInterpolationUpdate(deltaTime, motors, movers);
+            if (Settings.AutoInterpolate) PostSimulationInterpolationUpdate(deltaTime, motors, movers);
         }
         
         public static void ManualSimulationUpdate(float deltaTime, KinematicCharacterMotor motor) {
             s_motorBuffer.Clear();
             s_moverBuffer.Clear();
             s_motorBuffer.Add(motor);
-            if (Settings.Interpolate) PreSimulationInterpolationUpdate(s_motorBuffer, s_moverBuffer);
+            if (Settings.AutoInterpolate) PreSimulationInterpolationUpdate(s_motorBuffer, s_moverBuffer);
             Simulate(deltaTime, s_motorBuffer, s_moverBuffer);
-            if (Settings.Interpolate) PostSimulationInterpolationUpdate(deltaTime, s_motorBuffer, s_moverBuffer);
+            if (Settings.AutoInterpolate) PostSimulationInterpolationUpdate(deltaTime, s_motorBuffer, s_moverBuffer);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ManualSimulationUpdate(float deltaTime) {
-            if (Settings.Interpolate) PreSimulationInterpolationUpdate(CharacterMotors, PhysicsMovers);
+            if (Settings.AutoInterpolate) PreSimulationInterpolationUpdate(CharacterMotors, PhysicsMovers);
             Simulate(deltaTime, CharacterMotors, PhysicsMovers);
-            if (Settings.Interpolate) PostSimulationInterpolationUpdate(deltaTime, CharacterMotors, PhysicsMovers);
+            if (Settings.AutoInterpolate) PostSimulationInterpolationUpdate(deltaTime, CharacterMotors, PhysicsMovers);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
