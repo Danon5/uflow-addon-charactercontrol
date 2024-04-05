@@ -150,7 +150,6 @@ namespace KCC
     /// <summary>
     /// Component that manages character collisions and movement solving
     /// </summary>
-    [RequireComponent(typeof(CapsuleCollider))]
     public class KinematicCharacterMotor : MonoBehaviour
     {
 #pragma warning disable 0414
@@ -158,7 +157,6 @@ namespace KCC
         /// <summary>
         /// The capsule collider of this motor
         /// </summary>
-        [KccReadOnly]
         public CapsuleCollider Capsule;
 
         [Header("Capsule Settings")]
@@ -559,9 +557,9 @@ namespace KCC
         /// <summary>
         /// Handle validating all required values
         /// </summary>
-        public void ValidateData()
-        {
-            Capsule = GetComponent<CapsuleCollider>();
+        public void ValidateData() {
+            if (Capsule == null)
+                return;
             CapsuleRadius = Mathf.Clamp(CapsuleRadius, 0f, CapsuleHeight * 0.5f);
             Capsule.direction = 1;
             Capsule.sharedMaterial = CapsulePhysicsMaterial;
