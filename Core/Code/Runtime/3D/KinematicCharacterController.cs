@@ -7,19 +7,11 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
     [RequireComponent(typeof(KinematicCharacterMotor))]
     public sealed class KinematicCharacterController : MonoBehaviour, ICharacterController {
         private bool m_wasGrounded;
-        private KinematicCharacterMotor m_motor;
 
         [field: SerializeField] public LayerMask CollisionLayers { get; set; }
         public Vector3 NextVelocity { get; set; }
         public Quaternion NextRotation { get; set; }
-
-        public KinematicCharacterMotor Motor {
-            get {
-                if (m_motor == null)
-                    m_motor = GetComponent<KinematicCharacterMotor>();
-                return m_motor;
-            }
-        }
+        public KinematicCharacterMotor Motor { get; private set; }
         public Vector3 MostRecentAirVelocity { get; private set; }
         public bool BecameGroundedThisFrame { get; private set; }
         public bool BecameUngroundedThisFrame { get; private set; }
@@ -31,8 +23,7 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
 
         [UsedImplicitly]
         private void Awake() {
-            if (m_motor == null)
-                m_motor = GetComponent<KinematicCharacterMotor>();
+            Motor = GetComponent<KinematicCharacterMotor>();
             Motor.CharacterController = this;
         }
 
