@@ -43,7 +43,7 @@ namespace KinematicCharacterController.Examples
 
     public class ExampleCharacterController : MonoBehaviour, ICharacterController
     {
-        public KinematicCharacterMotor Motor;
+        public CharacterMotor Motor;
 
         [Header("Stable Movement")]
         public float MaxStableMoveSpeed = 10f;

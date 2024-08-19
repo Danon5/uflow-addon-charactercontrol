@@ -4,14 +4,14 @@ using UFlow.Core.Shared;
 using UnityEngine;
 
 namespace UFlow.Addon.CharacterControl.Core.Runtime {
-    [RequireComponent(typeof(KinematicCharacterMotor))]
+    [RequireComponent(typeof(CharacterMotor))]
     public sealed class KinematicCharacterController : MonoBehaviour, ICharacterController {
         private bool m_wasGrounded;
 
         [field: SerializeField] public LayerMask CollisionLayers { get; set; }
         public Vector3 NextVelocity { get; set; }
         public Quaternion NextRotation { get; set; }
-        public KinematicCharacterMotor Motor { get; private set; }
+        public CharacterMotor Motor { get; private set; }
         public Vector3 MostRecentAirVelocity { get; private set; }
         public bool BecameGroundedThisFrame { get; private set; }
         public bool BecameUngroundedThisFrame { get; private set; }
@@ -23,7 +23,7 @@ namespace UFlow.Addon.CharacterControl.Core.Runtime {
 
         [UsedImplicitly]
         private void Awake() {
-            Motor = GetComponent<KinematicCharacterMotor>();
+            Motor = GetComponent<CharacterMotor>();
             Motor.CharacterController = this;
         }
 

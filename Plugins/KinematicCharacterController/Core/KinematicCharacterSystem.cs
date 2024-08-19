@@ -8,12 +8,12 @@ namespace KCC {
     /// </summary>
     [DefaultExecutionOrder(-100)]
     public class KinematicCharacterSystem : MonoBehaviour {
-        public static readonly List<KinematicCharacterMotor> CharacterMotors = new();
+        public static readonly List<CharacterMotor> CharacterMotors = new();
         public static readonly List<PhysicsMover> PhysicsMovers = new();
         private static KinematicCharacterSystem s_instance;
         private static float s_lastCustomInterpolationStartTime = -1f;
         private static float s_lastCustomInterpolationDeltaTime = -1f;
-        private static List<KinematicCharacterMotor> s_motorBuffer = new();
+        private static List<CharacterMotor> s_motorBuffer = new();
         private static List<PhysicsMover> s_moverBuffer = new();
 
         public static KCCSettings Settings {
@@ -62,12 +62,12 @@ namespace KCC {
         /// <summary>
         /// Registers a KinematicCharacterMotor into the system
         /// </summary>
-        public static void RegisterCharacterMotor(KinematicCharacterMotor motor) => CharacterMotors.Add(motor);
+        public static void RegisterCharacterMotor(CharacterMotor motor) => CharacterMotors.Add(motor);
 
         /// <summary>
         /// Unregisters a KinematicCharacterMotor from the system
         /// </summary>
-        public static void UnregisterCharacterMotor(KinematicCharacterMotor motor) => CharacterMotors.Remove(motor);
+        public static void UnregisterCharacterMotor(CharacterMotor motor) => CharacterMotors.Remove(motor);
 
         /// <summary>
         /// Sets the maximum capacity of the physics movers list, to prevent allocations when adding movers
@@ -107,13 +107,13 @@ namespace KCC {
                 CustomInterpolationUpdate();
         }
 
-        public static void ManualSimulationUpdate(float deltaTime, List<KinematicCharacterMotor> motors, List<PhysicsMover> movers) {
+        public static void ManualSimulationUpdate(float deltaTime, List<CharacterMotor> motors, List<PhysicsMover> movers) {
             if (Settings.Interpolate) PreSimulationInterpolationUpdate(motors, movers);
             Simulate(deltaTime, motors, movers);
             if (Settings.Interpolate) PostSimulationInterpolationUpdate(deltaTime, motors, movers);
         }
         
-        public static void ManualSimulationUpdate(float deltaTime, KinematicCharacterMotor motor) {
+        public static void ManualSimulationUpdate(float deltaTime, CharacterMotor motor) {
             s_motorBuffer.Clear();
             s_moverBuffer.Clear();
             s_motorBuffer.Add(motor);
@@ -135,7 +135,7 @@ namespace KCC {
         /// <summary>
         /// Remembers the point to interpolate from for KinematicCharacterMotors and PhysicsMovers
         /// </summary>
-        public static void PreSimulationInterpolationUpdate(List<KinematicCharacterMotor> motors, List<PhysicsMover> movers) {
+        public static void PreSimulationInterpolationUpdate(List<CharacterMotor> motors, List<PhysicsMover> movers) {
             // Save pre-simulation poses and place transform at transient pose
             foreach (var motor in motors) {
                 motor.InitialTickPosition = motor.TransientPosition;
@@ -154,7 +154,7 @@ namespace KCC {
         /// <summary>
         /// Ticks characters and/or movers
         /// </summary>
-        public static void Simulate(float deltaTime, List<KinematicCharacterMotor> motors, List<PhysicsMover> movers) {
+        public static void Simulate(float deltaTime, List<CharacterMotor> motors, List<PhysicsMover> movers) {
             var characterMotorsCount = motors.Count;
             var physicsMoversCount = movers.Count;
 #pragma warning disable 0162
@@ -188,7 +188,7 @@ namespace KCC {
         /// <summary>
         /// Initiates the interpolation for KinematicCharacterMotors and PhysicsMovers
         /// </summary>
-        public static void PostSimulationInterpolationUpdate(float deltaTime, List<KinematicCharacterMotor> motors, 
+        public static void PostSimulationInterpolationUpdate(float deltaTime, List<CharacterMotor> motors, 
                                                              List<PhysicsMover> movers) {
             s_lastCustomInterpolationStartTime = Time.time;
             s_lastCustomInterpolationDeltaTime = deltaTime;
